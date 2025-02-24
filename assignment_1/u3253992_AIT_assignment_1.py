@@ -24,6 +24,26 @@ imgNames = ["water_coins", "jump", "tiger"]
 SegCounts = [2, 3, 4, 5]
 
 
+ # min-max normalization
+ # write a function that will convert the image pixel values to the range [0-1]
+def normalize(img):
+    min_val = np.min(img)
+    max_val = np.max(img)
+    
+    if max_val - min_val == 0:  # Avoid division by zero
+        return np.zeros_like(img, dtype="float")
+
+    new_img = (img - min_val) / (max_val - min_val)
+    return(new_img)
+
+
+# write a function that will convert the image pixel values from 0-255 to 0-1
+def im2double(im):
+    im = np.asarray(im, dtype='float')
+    if(im.max() > 1):
+        im /= 255.0
+    return im
+
 for imgName in imgNames:
     for SegCount in SegCounts:
         path = f"./input/{imgName}.png"
@@ -158,12 +178,12 @@ for imgName in imgNames:
             for seg_ctr in range(nSegments):
                 
                 denominatorSum = 0
-                for pix_ctr in range(nPixels):
-                    # Update RGB color vector of mu[seg_ctr] as current mu[seg_ctr] + pixels[pix_ctr,:] times Ws[pix_ctr,seg_ctr]
-                    mu[seg_ctr] = mu[seg_ctr] + np.transpose(pixels[pix_ctr,:]) * Ws[pix_ctr][seg_ctr]
+                # for pix_ctr in range(nPixels):
+                #     # Update RGB color vector of mu[seg_ctr] as current mu[seg_ctr] + pixels[pix_ctr,:] times Ws[pix_ctr,seg_ctr]
+                #     mu[seg_ctr] = mu[seg_ctr] + np.transpose(pixels[pix_ctr,:]) * Ws[pix_ctr][seg_ctr]
 
-                    # Update denominatorSum as current denominatorSum + Ws[pix_ctr][seg_ctr]
-                    denominatorSum = denominatorSum + Ws[pix_ctr][seg_ctr]
+                #     # Update denominatorSum as current denominatorSum + Ws[pix_ctr][seg_ctr]
+                #     denominatorSum = denominatorSum + Ws[pix_ctr][seg_ctr]
 
 
                 """
@@ -233,8 +253,17 @@ for imgName in imgNames:
     segimages with nSegments = 2,3,4,5 for the three images-
     this will be a 3 row X 4 column image matrix-- 15 points
 """
+
+
+
+# calculate rows from number of images
+rows = len(imgNames)
+
+# calculate columns from number of segment counts
+cols = len(SegCounts)
+
 # Create a 3-row × 4-column figure
-fig, axes = plt.subplots(3, 4, figsize=(12, 9))
+fig, axes = plt.subplots(rows, cols, figsize=(12, 9))
 
 for row, imgName in enumerate(imgNames):  # Iterate over 3 images (rows)
     for col, SegCount in enumerate(SegCounts):  # Iterate over 4 segment counts (columns)
