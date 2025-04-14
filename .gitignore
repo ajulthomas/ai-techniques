@@ -1,3 +1,5 @@
 test.ipynb
 *.zip
 *.csv
+fake-news-detector\.ipynb_checkpoints
+*-checkpoint.ipynb
