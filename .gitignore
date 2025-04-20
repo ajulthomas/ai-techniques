@@ -3,3 +3,6 @@ test.ipynb
 *.csv
 fake-news-detector\.ipynb_checkpoints
 *-checkpoint.ipynb
+*.pkl
+__pycache__/
+*.pyc
