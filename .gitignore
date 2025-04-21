@@ -6,3 +6,4 @@ fake-news-detector\.ipynb_checkpoints
 *.pkl
 __pycache__/
 *.pyc
+*.wav
