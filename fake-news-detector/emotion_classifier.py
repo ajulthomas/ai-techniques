@@ -288,10 +288,10 @@ emotion_pipeline = create_pipeline(model, tokenizer)
 
 # %%
 predictions = emotion_pipeline(df_model['text_transformer'].tolist(), truncation=True, padding=True)
-predictions.head()
 
 # %%
 
+df_model
 
 # %%
 
